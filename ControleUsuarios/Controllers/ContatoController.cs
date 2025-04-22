@@ -1,6 +1,7 @@
 ﻿using ControleUsuarios.Models;
 using ControleUsuarios.Repositorio;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ControleUsuarios.Controllers
 {
@@ -36,9 +37,18 @@ namespace ControleUsuarios.Controllers
 
         public IActionResult Deletar(int id)
         {
-            UsuarioModel usuario = _usuarioRepositorio.BuscarPorId(id);
-            _usuarioRepositorio.Deletar(id);
-            return RedirectToAction("Index");
+            try
+            {
+                UsuarioModel usuario = _usuarioRepositorio.BuscarPorId(id);
+                _usuarioRepositorio.Deletar(id);
+                TempData["MensagemSucesso"] = "Contato apagado com sucesso !";
+                return RedirectToAction("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos apagar seu contato, tente novamente, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -65,14 +75,22 @@ namespace ControleUsuarios.Controllers
         [HttpPost]
         public IActionResult Alterar(UsuarioModel usuario)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _usuarioRepositorio.Alterar(usuario);
+                if (ModelState.IsValid)
+                {
+                    _usuarioRepositorio.Alterar(usuario);
+                    TempData["MensagemSucesso"] = "Contato alterado com sucesso !";
+                    return RedirectToAction("Index");
+                }
+
+                return View("Editar", usuario);
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos alterar seu contato, tente novamente, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
-
-            return View("Editar", usuario);
-
         }
     }
 }
