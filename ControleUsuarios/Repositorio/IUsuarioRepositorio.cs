@@ -8,5 +8,6 @@ namespace ControleUsuarios.Repositorio
         List<UsuarioModel> BuscarTodos();
         UsuarioModel Adicionar(UsuarioModel usuario);
         UsuarioModel Alterar(UsuarioModel usuario);
+        bool Deletar(int id);
     }
 }

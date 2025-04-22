@@ -34,17 +34,45 @@ namespace ControleUsuarios.Controllers
             return View(contato);
         }
 
+        public IActionResult Deletar(int id)
+        {
+            UsuarioModel usuario = _usuarioRepositorio.BuscarPorId(id);
+            _usuarioRepositorio.Deletar(id);
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult Criar(UsuarioModel usuario)
         {
-            _usuarioRepositorio.Adicionar(usuario);
-            return RedirectToAction("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _usuarioRepositorio.Adicionar(usuario);
+                    TempData["MensagemSucesso"] = "Contato cadastrado com sucesso !";
+                    return RedirectToAction("Index");
+                }
+
+                return View(usuario);
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu contato, tente novamente, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
         }
+
         [HttpPost]
         public IActionResult Alterar(UsuarioModel usuario)
         {
-            _usuarioRepositorio.Alterar(usuario);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _usuarioRepositorio.Alterar(usuario);
+                return RedirectToAction("Index");
+            }
+
+            return View("Editar", usuario);
+
         }
     }
 }

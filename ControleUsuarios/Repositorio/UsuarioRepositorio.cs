@@ -44,5 +44,17 @@ namespace ControleUsuarios.Repositorio
 
             return usuarioDB;
         }
+
+        public bool Deletar(int id)
+        {
+            UsuarioModel usuarioDB = BuscarPorId(id);
+
+            if (usuarioDB == null) throw new System.Exception("Erro ao deletar o contato!");
+
+            _dataBaseContext.Usuarios.Remove(usuarioDB);
+            _dataBaseContext.SaveChanges();
+
+            return true;
+        }
     }
 }
