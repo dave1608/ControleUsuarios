@@ -7,14 +7,15 @@ namespace ControleUsuarios.Controllers
 {
     public class ContatoController : Controller
     {
-        private readonly IUsuarioRepositorio _usuarioRepositorio;
-        public ContatoController(IUsuarioRepositorio usuarioRepositorio)
+        private readonly IContatoRepositorio _contatoRepositorio;
+        public ContatoController(IContatoRepositorio contatoRepositorio)
         {
-            _usuarioRepositorio = usuarioRepositorio;
+            _contatoRepositorio = contatoRepositorio;
         }
+
         public IActionResult Index()
         {
-            List<UsuarioModel> usuarios = _usuarioRepositorio.BuscarTodos();
+            List<ContatoModel> usuarios = _contatoRepositorio.BuscarTodos();
             return View(usuarios);
         }
 
@@ -25,13 +26,13 @@ namespace ControleUsuarios.Controllers
 
         public IActionResult Editar(int id)
         {
-            UsuarioModel usuario = _usuarioRepositorio.BuscarPorId(id);
+            ContatoModel usuario = _contatoRepositorio.BuscarPorId(id);
             return View(usuario);
         }
 
         public IActionResult DeletarConfirmacao(int id)
         {
-            UsuarioModel contato = _usuarioRepositorio.BuscarPorId(id);
+            ContatoModel contato = _contatoRepositorio.BuscarPorId(id);
             return View(contato);
         }
 
@@ -39,8 +40,8 @@ namespace ControleUsuarios.Controllers
         {
             try
             {
-                UsuarioModel usuario = _usuarioRepositorio.BuscarPorId(id);
-                _usuarioRepositorio.Deletar(id);
+                ContatoModel usuario = _contatoRepositorio.BuscarPorId(id);
+                _contatoRepositorio.Deletar(id);
                 TempData["MensagemSucesso"] = "Contato apagado com sucesso !";
                 return RedirectToAction("Index");
             }
@@ -52,13 +53,13 @@ namespace ControleUsuarios.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(UsuarioModel usuario)
+        public IActionResult Criar(ContatoModel usuario)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _usuarioRepositorio.Adicionar(usuario);
+                    _contatoRepositorio.Adicionar(usuario);
                     TempData["MensagemSucesso"] = "Contato cadastrado com sucesso !";
                     return RedirectToAction("Index");
                 }
@@ -73,13 +74,13 @@ namespace ControleUsuarios.Controllers
         }
 
         [HttpPost]
-        public IActionResult Alterar(UsuarioModel usuario)
+        public IActionResult Alterar(ContatoModel usuario)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _usuarioRepositorio.Alterar(usuario);
+                    _contatoRepositorio.Alterar(usuario);
                     TempData["MensagemSucesso"] = "Contato alterado com sucesso !";
                     return RedirectToAction("Index");
                 }

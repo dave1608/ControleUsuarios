@@ -22,6 +22,7 @@ namespace ControleUsuarios.Repositorio
 
         public UsuarioModel Adicionar(UsuarioModel usuario)
         {
+            usuario.DataCadastro = DateTime.Now;
             // Inserir no banco de dados
             _dataBaseContext.Usuarios.Add(usuario);
             _dataBaseContext.SaveChanges();
@@ -33,11 +34,13 @@ namespace ControleUsuarios.Repositorio
         {
             UsuarioModel usuarioDB = BuscarPorId(usuario.Id);
 
-            if (usuarioDB == null) throw new System.Exception("Erro ao editar o contato!");
+            if (usuarioDB == null) throw new System.Exception("Erro ao editar o usuário!");
 
             usuarioDB.Nome = usuario.Nome;
             usuarioDB.Email = usuario.Email;
-            usuarioDB.Celular = usuario.Celular;
+            usuarioDB.Login = usuario.Login;
+            usuarioDB.Perfil = usuario.Perfil;
+            usuarioDB.DataAtualizacao = DateTime.Now;
 
             _dataBaseContext.Usuarios.Update(usuarioDB);
             _dataBaseContext.SaveChanges();
@@ -49,7 +52,7 @@ namespace ControleUsuarios.Repositorio
         {
             UsuarioModel usuarioDB = BuscarPorId(id);
 
-            if (usuarioDB == null) throw new System.Exception("Erro ao deletar o contato!");
+            if (usuarioDB == null) throw new System.Exception("Erro ao deletar o usuário!");
 
             _dataBaseContext.Usuarios.Remove(usuarioDB);
             _dataBaseContext.SaveChanges();

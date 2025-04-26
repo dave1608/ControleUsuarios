@@ -8,7 +8,7 @@ namespace ControleUsuarios.Controllers
     {
         public IActionResult Index()
         {
-            UsuarioModel home = new UsuarioModel();
+            ContatoModel home = new ContatoModel();
 
             home.Nome = "David Luiz";
             home.Email = "david.luiz@gmail.com";

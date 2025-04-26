@@ -1,12 +1,12 @@
-﻿@model List<ContatoModel>
+﻿@model List<UsuarioModel>
 @{
-    ViewData["Title"] = "Lista de Contatos";
+    ViewData["Title"] = "Lista de Usuários";
 }
 
 <div class="text-center">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary" role="button" asp-asp-controller="Contato" asp-action="Criar">Adicionar novo contato</a>
+        <a class="btn btn-primary" role="button" asp-asp-controller="Usuario" asp-action="Criar">Adicionar novo usuário</a>
     </div>
 
     <br />
@@ -29,30 +29,32 @@
 
     <br />
 
-    <h1 class="display-4">Lista de contatos</h1>
+    <h1 class="display-4">Lista de usuários</h1>
 
-    <table class="table" id="table-contatos">
+    <table class="table" id="table-usuarios" class="display" style="width:100%">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
+                <th scope="col">Login</th>
                 <th scope="col">Email</th>
-                <th scope="col">Celular</th>
+                <th scope="col">Data de cadastro</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @if (Model != null && Model.Any())
             {
-                foreach (ContatoModel usuario in Model){
+                foreach (var usuario in Model){
 					<tr>
 						<th scope="row">@usuario.Id</th>
 						<td>@usuario.Nome</td>
+						<td>@usuario.Login</td>
 						<td>@usuario.Email</td>
-						<td>@usuario.Celular</td>
+                        <td>@usuario.DataCadastro</td>
 						<td>
-							<a class="btn btn-primary" asp-route-id="@usuario.Id" asp-controller="Contato" asp-action="Editar">Editar</a>
-                            <a class="btn btn-danger" asp-route-id="@usuario.Id" asp-controller="Contato" asp-action="DeletarConfirmacao" >Excluir</a>
+							<a class="btn btn-primary" asp-route-id="@usuario.Id" asp-controller="Usuario" asp-action="Editar">Editar</a>
+                            <a class="btn btn-danger" asp-route-id="@usuario.Id" asp-controller="Usuario" asp-action="DeletarConfirmacao" >Excluir</a>
 						</td>
 					</tr>
                 }

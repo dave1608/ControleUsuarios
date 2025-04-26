@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuração do DbContext
 builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
 // Add services to the container.
