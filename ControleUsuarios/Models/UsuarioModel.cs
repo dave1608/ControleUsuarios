@@ -19,5 +19,10 @@ namespace ControleUsuarios.Models
         public PerfilEnum? Perfil { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }
+
+        public bool SenhaValida(string senha)
+        {
+            return Password == senha;
+        }
     }
 }
