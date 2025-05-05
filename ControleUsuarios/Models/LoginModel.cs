@@ -8,7 +8,7 @@ namespace ControleUsuarios.Models
         public string Login {  get; set; }
 
         [Required(ErrorMessage = "Digite a senha do usuário")]
-        public string Senha { get; set; }
+        public string Password { get; set; }
 
     }
 }
