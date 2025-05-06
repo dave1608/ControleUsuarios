@@ -1,10 +1,12 @@
-﻿using ControleUsuarios.Models;
+﻿using ControleUsuarios.Filters;
+using ControleUsuarios.Models;
 using ControleUsuarios.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ControleUsuarios.Controllers
 {
+    [PaginaUsuarioLogado]
     public class ContatoController : Controller
     {
         private readonly IContatoRepositorio _contatoRepositorio;

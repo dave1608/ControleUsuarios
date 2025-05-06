@@ -1,9 +1,11 @@
-﻿using ControleUsuarios.Models;
+﻿using ControleUsuarios.Filters;
+using ControleUsuarios.Models;
 using ControleUsuarios.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleUsuarios.Controllers
 {
+    [PaginaAdmin]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
