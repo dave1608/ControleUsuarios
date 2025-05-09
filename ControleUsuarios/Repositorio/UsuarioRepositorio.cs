@@ -15,6 +15,10 @@ namespace ControleUsuarios.Repositorio
         {
             return _dataBaseContext.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
         }
+        public UsuarioModel BuscarPorEmailELogin(string email, string login)
+        {
+            return _dataBaseContext.Usuarios.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
+        }
 
         public UsuarioModel BuscarPorId(int id)
         {
@@ -28,6 +32,7 @@ namespace ControleUsuarios.Repositorio
         public UsuarioModel Adicionar(UsuarioModel usuario)
         {
             usuario.DataCadastro = DateTime.Now;
+            usuario.SetSenhaHash();
             // Inserir no banco de dados
             _dataBaseContext.Usuarios.Add(usuario);
             _dataBaseContext.SaveChanges();

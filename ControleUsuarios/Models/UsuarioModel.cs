@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ControleUsuarios.Enums;
+using ControleUsuarios.Helper;
 
 namespace ControleUsuarios.Models
 {
@@ -22,7 +23,17 @@ namespace ControleUsuarios.Models
 
         public bool SenhaValida(string senha)
         {
-            return Password == senha;
+            return Password == senha.GerarHash();
+        }
+        public void SetSenhaHash()
+        {
+            Password = Password.GerarHash();
+        }
+        public string GerarNovaSenha() 
+        {
+            string novaSenha = Guid.NewGuid().ToString().Substring(0 , 8);
+            Password = novaSenha.GerarHash();
+            return novaSenha;
         }
     }
 }
