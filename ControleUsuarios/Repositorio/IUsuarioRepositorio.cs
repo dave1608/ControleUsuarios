@@ -10,6 +10,7 @@ namespace ControleUsuarios.Repositorio
         List<UsuarioModel> BuscarTodos();
         UsuarioModel Adicionar(UsuarioModel usuario);
         UsuarioModel Alterar(UsuarioModel usuario);
+        UsuarioModel AlterarSenha(AlterarSenhaModel alterarSenhaModel);
         bool Deletar(int id);
     }
 }
