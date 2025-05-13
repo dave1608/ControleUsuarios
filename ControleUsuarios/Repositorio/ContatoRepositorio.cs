@@ -15,9 +15,9 @@ namespace ControleUsuarios.Repositorio
         {
             return _dataBaseContext.Contatos.FirstOrDefault(u => u.Id == id);
         }
-        public List<ContatoModel> BuscarTodos()
+        public List<ContatoModel> BuscarTodos(int usuarioId)
         {
-            return _dataBaseContext.Contatos.ToList();
+            return _dataBaseContext.Contatos.Where(x => x.UsuarioId == usuarioId).ToList();
         }
 
         public ContatoModel Adicionar(ContatoModel usuario)
